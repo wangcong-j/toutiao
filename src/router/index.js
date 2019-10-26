@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import text from '../views/login/text.vue'
 
 import Login from '../views/login/index.vue'
 
@@ -14,6 +15,9 @@ const routes = [
   }, {
     path: '/login',
     component: Login
+  }, {
+    path: '/text',
+    component: text
   },
   {
     path: '/about',
