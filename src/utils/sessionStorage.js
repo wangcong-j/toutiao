@@ -1,11 +1,11 @@
 const userInfo = 'userInfo'
 const sessionHandle = {
-  // 获取
+  // 查
   setSession (data) {
     let jsonStr = JSON.stringify(data)
     sessionStorage.setItem(userInfo, jsonStr)
   },
-  // 获取
+  // 获取数据
   getSession () {
     const jsonStr = window.sessionStorage.getItem(userInfo)
     return JSON.parse(jsonStr)

@@ -70,15 +70,15 @@
     <el-header >
       <span class="el-icon-s-unfold icon_logo" @click="click_icon"></span>
       <span class="text_logo">阅读器后台</span>
-      <el-dropdown style="float:right">
-        <img class="headIcon" src="../../assets/avatar.jpg" alt="">
-        <span class="el-dropdown-link  user">
-          用户名<i class="el-icon-arrow-down el-icon--right" icon_i ></i>
+      <el-dropdown style="float:right" @command='hanadleClick'>
+        <img class="headIcon" :src="photo" alt="">
+        <span class="el-dropdown-link  user"> {{name}}
+        <i class="el-icon-arrow-down el-icon--right" icon_i ></i>
         </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item icon="el-icon-user-solid">个人信息</el-dropdown-item>
-          <el-dropdown-item icon="el-icon-share">gitup地址</el-dropdown-item>
-          <el-dropdown-item icon="el-icon-switch-button">退出</el-dropdown-item>
+        <el-dropdown-menu slot="dropdown" >
+          <el-dropdown-item command='setting' icon="el-icon-user-solid" >个人信息</el-dropdown-item>
+          <el-dropdown-item command='gitup' icon="el-icon-share" >gitup地址</el-dropdown-item>
+          <el-dropdown-item command='logout' icon="el-icon-switch-button" >退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
 
@@ -94,15 +94,41 @@
 </template>
 
 <script>
+import sessionStorage from '../../utils/sessionStorage'
+
 export default {
   data () {
     return {
-      isCollapse: false
+      isCollapse: false,
+      // 用户名
+      name: null,
+      // 用户头像
+      photo: ''
     }
+  },
+  // 在组件初始化时 添加函数
+  created () {
+    const user = sessionStorage.getSession() || {}
+    this.photo = user.photo
+    this.name = user.name
   },
   methods: {
     click_icon () {
       this.isCollapse = !this.isCollapse
+    },
+    // 组件不支持click  但vue 提供了事件修饰符 native
+    setting () {
+      this.$router.push('./setting')
+    },
+    gitup () {
+      this.$router.push('./gitup')
+    },
+    logout () {
+      sessionStorage.delSession()
+      this.$router.push('./login')
+    },
+    hanadleClick (command) {
+      this[command]()
     }
   }
 }
