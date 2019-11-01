@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/home/index.vue'
-import Article from '../views/welcome'
+import Welcome from '../views/welcome'
 import NotFound from '@/views/404'
+import Article from '@/views/article'
 
 import Login from '../views/login/index.vue'
 import SessionStorage from '../utils/sessionStorage'
@@ -11,11 +12,18 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    redirect: '/home'
+  },
+  {
     path: '/home',
     component: Home,
     children: [
       {
         path: '/home',
+        component: Welcome
+      }, {
+        path: '/article',
         component: Article
       }
     ]

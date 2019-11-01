@@ -1,18 +1,20 @@
 <template>
 <el-container class="home-container" >
+  <!-- 侧边栏信息 -->
   <el-aside :width="!isCollapse?'200px':'64px'" class="left">
     <div class="bg_logo" :class="{small_logo:isCollapse}"></div>
+    <!-- default-active=    默认激活样式选择 -->
     <el-menu
     router
       unique-opened
-      default-active="/"
+      :default-active="$route.path"
       class="el-menu-vertical-demo"
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
        :collapse="isCollapse"
        :collapse-transition="false">
-        <el-menu-item index="/">
+        <el-menu-item index="/home">
           <i class="el-icon-house"></i>
           <span slot="title">首页</span>
         </el-menu-item>
@@ -66,7 +68,7 @@
   </el-aside>
 
   <el-container>
-
+      <!-- 头部信息 -->
     <el-header >
       <span class="el-icon-s-unfold icon_logo" @click="click_icon"></span>
       <span class="text_logo">阅读器后台</span>
@@ -84,7 +86,8 @@
 
     </el-header>
 
-    <el-main>
+    <el-main style="">
+      <!-- 视图三   更改信息 -->
       <router-view></router-view>
     </el-main>
 
@@ -117,12 +120,15 @@ export default {
       this.isCollapse = !this.isCollapse
     },
     // 组件不支持click  但vue 提供了事件修饰符 native
+    // 个人信息设置
     setting () {
       this.$router.push('./setting')
     },
+    // gitup跳转接口
     gitup () {
       this.$router.push('./gitup')
     },
+    // 退出接口
     logout () {
       sessionStorage.delSession()
       this.$router.push('./login')

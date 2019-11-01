@@ -6,8 +6,11 @@ import ElementUi from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // 挂载axios文件
 import axios from './api/index.js'
-Vue.prototype.$http = axios
+// 全局注册面包屑，并挂到 vue上  MyBread
+import plugin from './components/index'
+Vue.use(plugin)
 
+Vue.prototype.$http = axios
 Vue.use(ElementUi)
 
 Vue.config.productionTip = false
