@@ -4,6 +4,11 @@ import Home from '../views/home/index.vue'
 import Welcome from '../views/welcome'
 import NotFound from '@/views/404'
 import Article from '@/views/article'
+import Image from '@/views/image'
+import Publish from '@/views/publish' // 发布文章
+import Comment from '@/views/comment' // 评论管理
+import Fans from '@/views/fans' // 粉丝管理
+import Setting from '@/views/setting' // 个人设置
 
 import Login from '../views/login/index.vue'
 import SessionStorage from '../utils/sessionStorage'
@@ -22,15 +27,38 @@ const routes = [
       {
         path: '/home',
         component: Welcome
-      }, {
+      },
+      {
         path: '/article',
         component: Article
+      },
+      {
+        path: '/image',
+        component: Image
+      },
+      {
+        path: '/publish',
+        component: Publish
+      },
+      {
+        path: '/comment',
+        component: Comment
+      },
+      {
+        path: '/fans',
+        component: Fans
+      },
+      {
+        path: '/setting',
+        component: Setting
       }
     ]
-  }, {
+  },
+  {
     path: '/login',
     component: Login
-  }, {
+  },
+  {
     path: '*',
     component: NotFound
   }

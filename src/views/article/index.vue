@@ -2,8 +2,10 @@
   <div>
     <!-- 表单筛选 -->
     <el-card class="box-card">
-      <!-- 使用面包屑元素 -->
-      <my-bread>内容管理</my-bread>
+      <div slot="header">
+        <!-- 使用面包屑元素 -->
+        <my-bread>内容管理</my-bread>
+      </div>
 
       <!-- 表单 -->
       <el-form label-width="80px"
@@ -20,7 +22,7 @@
             </el-radio-group>
           </template>
         </el-form-item>
-
+        <!-- 频道 -->
         <el-form-item label="频道：">
           <el-select v-model="reqParams.channel_id"
                      placeholder="请选择"
@@ -29,7 +31,6 @@
                        :key="item.id"
                        :label="item.name"
                        :value="item.id">
-
             </el-option>
           </el-select>
         </el-form-item>
@@ -224,10 +225,5 @@ export default {
   top: 0;
   -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
-  .my_breadcrumb {
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #ccc;
-  }
 }
 </style>

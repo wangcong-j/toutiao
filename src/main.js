@@ -8,6 +8,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import axios from './api/index.js'
 // 全局注册面包屑，并挂到 vue上  MyBread
 import plugin from './components/index'
+// 引入全局样式
+import './styles/index.less'
 Vue.use(plugin)
 
 Vue.prototype.$http = axios
