@@ -24,15 +24,7 @@
         </el-form-item>
         <!-- 频道 -->
         <el-form-item label="频道：">
-          <el-select v-model="reqParams.channel_id"
-                     placeholder="请选择"
-                     clearable>
-            <el-option v-for="item in channelOptions"
-                       :key="item.id"
-                       :label="item.name"
-                       :value="item.id">
-            </el-option>
-          </el-select>
+          <my-select v-model="reqParams.channel_id"></my-select>
         </el-form-item>
 
         <el-form-item label="日期：">
@@ -140,8 +132,7 @@ export default {
         channel_id: null
       },
       articles: null,
-      // 频道列表选项
-      channelOptions: [],
+
       // 绑定选择日期范围
       dateArr: [],
       // 获取数据总条数
@@ -150,18 +141,9 @@ export default {
   },
   // 在页面加载时 钩子函数
   created () {
-    this.getChannelOptions()
     this.gitArticles()
   },
   methods: {
-    // 添加 getChannelOptions 事件 拿后台接口列表的数据
-    async getChannelOptions () {
-      // 获取数据
-      const {
-        data: { data }
-      } = await this.$http.get('channels')
-      this.channelOptions = data.channels
-    },
     // 获取文章列表
     async gitArticles () {
       const {

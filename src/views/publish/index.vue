@@ -12,7 +12,7 @@
         </el-form-item>
         <el-form-item label="内容：">
           <!-- 富文本 -->
-          <quill-editor v-model="content"
+          <quill-editor v-model="articleForm.content"
                         :options="editorOption">
           </quill-editor>
         </el-form-item>
@@ -23,22 +23,23 @@
             <el-radio :label="0">无图</el-radio>
             <el-radio :label="-1">自动</el-radio>
           </el-radio-group>
+          <div v-if="articleForm.cover.type > 0">
+            <div style="  float: left; margin-right:40px; margin-top:10px"
+                 v-for="item in articleForm.cover.type"
+                 :key="item">
+              <imger></imger>
+            </div>
+          </div>
         </el-form-item>
 
         <el-form-item label="频道：">
-          <el-select v-model="reqParams.channel_id"
-                     placeholder="请选择"
-                     clearable>
-            <el-option v-for="item in channelOptions"
-                       :key="item.id"
-                       :label="item.name"
-                       :value="item.id">
-            </el-option>
-          </el-select>
+          <my-select :value='reqParams.channel_id'
+                     v-on:input='handleinput'></my-select>
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary">发表</el-button>
+          <el-button type="primary"
+                     @click="release">发表</el-button>
           <el-button>存入草稿</el-button>
         </el-form-item>
       </el-form>
@@ -60,6 +61,20 @@ export default {
   },
   data () {
     return {
+      editorOption: {
+        placeholder: '',
+        modules: {
+          // 富文本框功能配置
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block'],
+            [{ header: 1 }, { header: 2 }],
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            [{ indent: '-1' }, { indent: '+1' }],
+            ['image']
+          ]
+        }
+      },
       // 频道
       reqParams: {
         status: null,
@@ -71,43 +86,22 @@ export default {
         channel_id: null
       },
       // 频道列表选项
-      channelOptions: [],
       // 提交文章表单
       articleForm: {
         title: null,
+        content: '',
         cover: {
           type: 1
         }
       }
     }
   },
-  created () {
-    this.getChannelOptions()
-  },
-  modules: {
-    //   配置富文本功能
-    // 富文本配置对象
-    editorOption: {
-      placeholder: '',
-      modules: {
-        toolbar: [
-          ['bold', 'italic', 'underline', 'strike'],
-          // ['blockquote', 'code-block'],
-          // [{ header: 1 }, { header: 2 }],
-          // [{ list: 'ordered' }, { list: 'bullet' }],
-          // [{ indent: '-1' }, { indent: '+1' }],
-          ['image']
-        ]
-      }
+  methods: {
+    handleinput (value) {
+      this.reqParams.channel_id = value
     },
-    // 添加 getChannelOptions 事件 拿后台接口列表的数据   获取频道列表数据
-    async getChannelOptions () {
-      // 获取数据
-      const {
-        data: { data }
-      } = await this.$http.get('channels')
-      this.channelOptions = data.channels
-    }
+    // 点击发布按钮
+    release () {}
   }
 }
 </script>
@@ -119,6 +113,7 @@ export default {
   position: relative;
   left: 0;
   top: 0;
+
   -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
 }

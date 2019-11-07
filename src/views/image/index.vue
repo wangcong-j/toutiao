@@ -59,7 +59,8 @@
         <!-- headers  上传组件中需要自己携带请求头 -->
         <!-- name  提交文件的字段名称，需要和后台保持一致  -->
         <!-- :on-success  文件上传成功后的处理函数 -->
-        <el-upload class="avatar-uploader"
+        <imger></imger>
+        <!-- <el-upload class="avatar-uploader"
                    action="http://ttapi.research.itcast.cn/mp/v1_0/user/images"
                    :headers="headers"
                    name="image"
@@ -70,14 +71,14 @@
                class="avatar">
           <i v-else
              class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+        </el-upload> -->
       </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import SessionStorage from '../../utils/sessionStorage'
+// import SessionStorage from '../../utils/sessionStorage'
 export default {
   data () {
     return {
@@ -92,13 +93,13 @@ export default {
       // 总条数
       total: 0,
       //   添加素材
-      dialogVisible: false,
+      dialogVisible: false
       //   上传成功后要显示的图片地址
-      imageUrl: null,
+      //   imageUrl: null
       //   上传组件   携带的请求头
-      headers: {
-        Authorization: `Bearer ${SessionStorage.getSession().token}`
-      }
+      //   headers: {
+      //     Authorization: `Bearer ${SessionStorage.getSession().token}`
+      //   }
     }
   },
   created () {
@@ -157,19 +158,19 @@ export default {
         })
     },
     // 素材上传成功后的处理函数
-    handSuccess (res) {
-      console.log(res)
-      this.imageUrl = res.data.url
-      // 添加提示信息
-      this.$message.success('上传成功')
-      //   添加定时器,关闭对话框
-      window.setTimeout(() => {
-        //   关闭对话框
-        this.dialogVisible = false
-        // 更新列表
-        this.getImages()
-      }, 2000)
-    },
+    // handSuccess (res) {
+    //   console.log(res)
+    //   this.imageUrl = res.data.url
+    //   // 添加提示信息
+    //   this.$message.success('上传成功')
+    //   //   添加定时器,关闭对话框
+    //   window.setTimeout(() => {
+    //     //   关闭对话框
+    //     this.dialogVisible = false
+    //     // 更新列表
+    //     this.getImages()
+    //   }, 2000)
+    // },
     open () {
       // 打开对话框
       this.dialogVisible = true

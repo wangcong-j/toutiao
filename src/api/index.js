@@ -2,7 +2,7 @@
 import axios from 'axios'
 import sessionStorage from '../utils/sessionStorage'
 import router from '../router'
-// import JSONBIG from 'json-bigint'
+import JSONBIG from 'json-bigint'
 
 // 对 axios进行配置
 // baseURL 设置基准地址（共有地址）
@@ -10,9 +10,6 @@ axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
 
 // 留地方 其他配置···
 // 配置请求头
-// if (sessionStorage.getSession()) {
-//   axios.defaults.headers.Authorization = `Bearer ${sessionStorage.getSession().token}`
-// }
 
 // 请求拦截器
 axios.interceptors.request.use(
@@ -41,18 +38,18 @@ axios.interceptors.response.use(
     }
   }
 )
-
-// axios.defaults.transformResponse = [
-//   data => {
-//     // 后台的原始数据   理想情况 json字符串
-//     // 后台可能没有任何响应内容  data 值是 null
-//     try {
-//       return JSONBIG.parse(data)
-//     } catch (e) {
-//       return data
-//     }
-//   }
-// ]
+// 处理超出js处理最大值
+axios.defaults.transformResponse = [
+  data => {
+    // 后台的原始数据   理想情况 json字符串
+    // 后台可能没有任何响应内容  data 值是 null
+    try {
+      return JSONBIG.parse(data)
+    } catch (e) {
+      return data
+    }
+  }
+]
 
 // 导出 axios
 export default axios
